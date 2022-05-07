@@ -23,7 +23,7 @@ import com.example.ticketapp.ui.login.DontHaveAnAccount
 
 @Composable
 fun SignupScreen(
-    onClickSignup: (email: String, pass: String, role: String) -> Unit,
+    onClickSignup: (name: String, email: String, pass: String, role: String) -> Unit,
     onClickBack: () -> Unit
 ) {
     Scaffold(
@@ -45,7 +45,7 @@ fun SignupScreen(
 
 @Composable
 fun SignupBody(
-    onClickSignup: (email: String, pass: String, role: String) -> Unit
+    onClickSignup: (name: String, email: String, pass: String, role: String) -> Unit
 ) {
     var name by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
@@ -62,7 +62,7 @@ fun SignupBody(
         SignupEmail(email = email, onTextChange = { email = it })
         SignupPass(pass = pass, onTextChange = { pass = it })
         ChooseRole(selectedRole = selectedRole)
-        SignupButton(onClickSignup = onClickSignup, email, pass, selectedRole)
+        SignupButton(onClickSignup = onClickSignup, name, email, pass, selectedRole)
     }
 }
 
@@ -127,8 +127,8 @@ fun ChooseRole(selectedRole: String) {
 }
 
 @Composable
-fun SignupButton(onClickSignup: (email: String, pass: String, role: String) -> Unit, email: String, pass: String, role: String) {
-    Button(onClick = { onClickSignup(email, pass, role) }, modifier = Modifier.padding(8.dp)) {
+fun SignupButton(onClickSignup: (name: String, email: String, pass: String, role: String) -> Unit, name: String, email: String, pass: String, role: String) {
+    Button(onClick = { onClickSignup(name, email, pass, role) }, modifier = Modifier.padding(8.dp)) {
         Text(text = "Signup")
     }
 }

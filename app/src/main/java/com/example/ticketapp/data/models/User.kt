@@ -6,4 +6,12 @@ data class User(
     val email: String,
     val pass: String,
     val role: String
-)
+) {
+    constructor() : this (
+        id = "",
+        name = "",
+        email = "",
+        pass = "",
+        role = ""
+    )
+}
