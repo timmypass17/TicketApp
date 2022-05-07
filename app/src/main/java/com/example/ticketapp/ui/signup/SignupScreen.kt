@@ -16,8 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ticketapp.ui.dashboard.DashBoardBody
@@ -25,7 +23,7 @@ import com.example.ticketapp.ui.login.DontHaveAnAccount
 
 @Composable
 fun SignupScreen(
-    onClickSignup: (email: String, pass: String, role: String) -> Unit,
+    onClickSignup: (name: String, email: String, pass: String, role: String) -> Unit,
     onClickBack: () -> Unit
 ) {
     Scaffold(
@@ -47,7 +45,7 @@ fun SignupScreen(
 
 @Composable
 fun SignupBody(
-    onClickSignup: (email: String, pass: String, role: String) -> Unit
+    onClickSignup: (name: String, email: String, pass: String, role: String) -> Unit
 ) {
     var name by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
@@ -64,7 +62,7 @@ fun SignupBody(
         SignupEmail(email = email, onTextChange = { email = it })
         SignupPass(pass = pass, onTextChange = { pass = it })
         ChooseRole(selectedRole = selectedRole)
-        SignupButton(onClickSignup = onClickSignup, email, pass, selectedRole)
+        SignupButton(onClickSignup = onClickSignup, name, email, pass, selectedRole)
     }
 }
 
@@ -100,10 +98,7 @@ fun ChooseRole(selectedRole: String) {
     val radioOptions = listOf("Developer", "Program Manager")
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
     // Note that Modifier.selectableGroup() is essential to ensure correct accessibility behavior
-    Column(
-        Modifier
-            .selectableGroup()
-            .padding(start = 40.dp, end = 40.dp)) {
+    Column(Modifier.selectableGroup().padding(start = 40.dp, end = 40.dp)) {
         radioOptions.forEach { text ->
             Row(
                 Modifier
@@ -132,8 +127,8 @@ fun ChooseRole(selectedRole: String) {
 }
 
 @Composable
-fun SignupButton(onClickSignup: (email: String, pass: String, role: String) -> Unit, email: String, pass: String, role: String) {
-    Button(onClick = { onClickSignup(email, pass, role) }, modifier = Modifier.padding(8.dp)) {
+fun SignupButton(onClickSignup: (name: String, email: String, pass: String, role: String) -> Unit, name: String, email: String, pass: String, role: String) {
+    Button(onClick = { onClickSignup(name, email, pass, role) }, modifier = Modifier.padding(8.dp)) {
         Text(text = "Signup")
     }
 }
