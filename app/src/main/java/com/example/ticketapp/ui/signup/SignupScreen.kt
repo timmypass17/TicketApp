@@ -23,7 +23,7 @@ import com.example.ticketapp.ui.login.DontHaveAnAccount
 
 @Composable
 fun SignupScreen(
-    onClickSignup: (email: String, pass: String, role: String) -> Unit,
+    onClickSignup: (name: String, email: String, pass: String, role: String) -> Unit,
     onClickBack: () -> Unit
 ) {
     Scaffold(
@@ -43,15 +43,15 @@ fun SignupScreen(
     }
 }
 
+
 @Composable
 fun SignupBody(
-    onClickSignup: (email: String, pass: String, role: String) -> Unit
+    onClickSignup: (name: String, email: String, pass: String, role: String) -> Unit
 ) {
     var name by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
     var pass by rememberSaveable { mutableStateOf("") }
-    val selectedRole by remember { mutableStateOf("Developer") }
-    Log.i("SignupScreen", "Selected Role: ${selectedRole}")
+    var selectedRole by remember { mutableStateOf("Developer") }
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -61,8 +61,38 @@ fun SignupBody(
         SignupName(name = name, onTextChange = { name = it })
         SignupEmail(email = email, onTextChange = { email = it })
         SignupPass(pass = pass, onTextChange = { pass = it })
-        ChooseRole(selectedRole = selectedRole)
-        SignupButton(onClickSignup = onClickSignup, email, pass, selectedRole)
+
+        // Radio button
+        val radioOptions = listOf("Developer", "Program Manager")
+        Log.i(TAG, "selected role: $selectedRole")
+        // Note that Modifier.selectableGroup() is essential to ensure correct accessibility behavior
+        Column(Modifier.selectableGroup().padding(start = 40.dp, end = 40.dp)) {
+            radioOptions.forEach { text ->
+                Row(
+                    Modifier
+                        .fillMaxWidth()
+                        .height(56.dp)
+                        .selectable(
+                            selected = (text == selectedRole),
+                            onClick = { selectedRole = text },
+                            role = Role.RadioButton
+                        )
+                        .padding(horizontal = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    RadioButton(
+                        selected = (text == selectedRole),
+                        onClick = null // null recommended for accessibility with screenreaders
+                    )
+                    Text(
+                        text = text,
+                        style = MaterialTheme.typography.body1.merge(),
+                        modifier = Modifier.padding(start = 16.dp)
+                    )
+                }
+            }
+        }
+        SignupButton(onClickSignup = onClickSignup, name, email, pass, selectedRole)
     }
 }
 
@@ -94,41 +124,14 @@ fun SignupPass(pass: String, onTextChange: (String) -> Unit) {
 }
 
 @Composable
-fun ChooseRole(selectedRole: String) {
-    val radioOptions = listOf("Developer", "Program Manager")
-    val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
-    // Note that Modifier.selectableGroup() is essential to ensure correct accessibility behavior
-    Column(Modifier.selectableGroup().padding(start = 40.dp, end = 40.dp)) {
-        radioOptions.forEach { text ->
-            Row(
-                Modifier
-                    .fillMaxWidth()
-                    .height(56.dp)
-                    .selectable(
-                        selected = (text == selectedOption),
-                        onClick = { onOptionSelected(text) },
-                        role = Role.RadioButton
-                    )
-                    .padding(horizontal = 16.dp),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                RadioButton(
-                    selected = (text == selectedOption),
-                    onClick = null // null recommended for accessibility with screenreaders
-                )
-                Text(
-                    text = text,
-                    style = MaterialTheme.typography.body1.merge(),
-                    modifier = Modifier.padding(start = 16.dp)
-                )
-            }
-        }
-    }
-}
-
-@Composable
-fun SignupButton(onClickSignup: (email: String, pass: String, role: String) -> Unit, email: String, pass: String, role: String) {
-    Button(onClick = { onClickSignup(email, pass, role) }, modifier = Modifier.padding(8.dp)) {
+fun SignupButton(
+    onClickSignup: (name: String, email: String, pass: String, role: String) -> Unit,
+    name: String,
+    email: String,
+    pass: String,
+    role: String
+) {
+    Button(onClick = { onClickSignup(name, email, pass, role) }, modifier = Modifier.padding(8.dp)) {
         Text(text = "Signup")
     }
 }
