@@ -1,6 +1,7 @@
 package com.example.ticketapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.viewModels
@@ -49,8 +50,10 @@ fun TicketApp(loginViewModel: LoginViewModel, signupViewModel: SignupViewModel) 
         )
         Scaffold(
             bottomBar = {
+                Log.i("MainActivity", (currentScreen != TicketScreen.Login).toString())
+
                 // Show bottom bar if its not the login or signup screen
-                if (currentScreen != TicketScreen.Login || currentScreen != TicketScreen.Signup) {
+                if (currentScreen != TicketScreen.Login && currentScreen != TicketScreen.Signup) {
                     BottomBar(
                         allScreens = bottomNavScreens,
                         onTabSelected = { screen -> navController.navigate(screen.name) },
@@ -91,7 +94,14 @@ fun TicketNavHost(
         }
 
         composable(TicketScreen.Signup.name) {
-            SignupScreen(onClickSignup = signupViewModel::onClickSignUp)
+            SignupScreen(
+                onClickSignup = signupViewModel::onClickSignUp,
+                onClickBack = {
+                    navController.navigate(TicketScreen.Login.name) {
+                        popUpTo(TicketScreen.Login.name) { inclusive = true }
+                    }
+                }
+            )
         }
 
         composable(TicketScreen.DashBoard.name) {
