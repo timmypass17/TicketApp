@@ -16,6 +16,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.ticketapp.ui.createTicket.CreateTicketScreen
+import com.example.ticketapp.ui.createTicket.createTicketViewModel
 import com.example.ticketapp.ui.dashboard.DashBoardScreen
 import com.example.ticketapp.ui.login.LoginScreen
 import com.example.ticketapp.ui.login.LoginViewModel
@@ -30,17 +32,19 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val loginViewModel by viewModels<LoginViewModel>()
         val signupViewModel by viewModels<SignupViewModel>()
+        val createTicketViewModel by viewModels<createTicketViewModel>()
         setContent {
             TicketApp(
                 loginViewModel = loginViewModel,
-                signupViewModel= signupViewModel
+                signupViewModel= signupViewModel,
+                createTicketViewModel = createTicketViewModel
             )
         }
     }
 }
 
 @Composable
-fun TicketApp(loginViewModel: LoginViewModel, signupViewModel: SignupViewModel) {
+fun TicketApp(loginViewModel: LoginViewModel, signupViewModel: SignupViewModel, createTicketViewModel: createTicketViewModel) {
     TicketAppTheme() {
         val navController = rememberNavController()
         val backStackEntry = navController.currentBackStackEntryAsState()
@@ -66,7 +70,8 @@ fun TicketApp(loginViewModel: LoginViewModel, signupViewModel: SignupViewModel) 
                 navController = navController,
                 modifier = Modifier.padding(innerPadding),
                 loginViewModel = loginViewModel,
-                signupViewModel = signupViewModel
+                signupViewModel = signupViewModel,
+                createTicketViewModel = createTicketViewModel
             )
         }
     }
@@ -77,7 +82,8 @@ fun TicketNavHost(
     navController: NavHostController,
     modifier: Modifier = Modifier,
     loginViewModel: LoginViewModel,
-    signupViewModel: SignupViewModel
+    signupViewModel: SignupViewModel,
+    createTicketViewModel: createTicketViewModel
 ) {
     NavHost(
         navController = navController,
@@ -110,6 +116,10 @@ fun TicketNavHost(
 
         composable(TicketScreen.Profile.name) {
             ProfileScreen()
+        }
+
+        composable(TicketScreen.CreateTicket.name){
+            CreateTicketScreen(onClickCreateTicket = createTicketViewModel::onClickCreateTicket)
         }
     }
 }

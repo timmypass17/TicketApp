@@ -16,6 +16,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ticketapp.ui.dashboard.DashBoardBody
@@ -98,7 +100,10 @@ fun ChooseRole(selectedRole: String) {
     val radioOptions = listOf("Developer", "Program Manager")
     val (selectedOption, onOptionSelected) = remember { mutableStateOf(radioOptions[0]) }
     // Note that Modifier.selectableGroup() is essential to ensure correct accessibility behavior
-    Column(Modifier.selectableGroup().padding(start = 40.dp, end = 40.dp)) {
+    Column(
+        Modifier
+            .selectableGroup()
+            .padding(start = 40.dp, end = 40.dp)) {
         radioOptions.forEach { text ->
             Row(
                 Modifier
