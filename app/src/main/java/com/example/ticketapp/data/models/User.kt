@@ -5,13 +5,15 @@ data class User(
     val name: String,
     val email: String,
     val pass: String,
-    val role: String
+    val role: String,
+    val projects: List<Project>
 ) {
     constructor() : this (
         id = "",
         name = "",
         email = "",
         pass = "",
-        role = ""
+        role = "",
+        projects = listOf()
     )
 }

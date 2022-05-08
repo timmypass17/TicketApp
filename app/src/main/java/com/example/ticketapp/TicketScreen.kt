@@ -13,7 +13,8 @@ enum class TicketScreen(
     Signup(Icons.Default.Face),
     DashBoard(Icons.Default.Home),
     Profile(Icons.Default.Person),
-    CreateTicket(Icons.Default.Face);
+    CreateTicket(Icons.Default.Face),
+    CreateProject(Icons.Default.Face);
 
     companion object {
         fun fromRoute(route: String?): TicketScreen =
@@ -23,6 +24,7 @@ enum class TicketScreen(
                 DashBoard.name -> DashBoard
                 Profile.name -> Profile
                 CreateTicket.name -> CreateTicket
+                CreateProject.name -> CreateProject
                 null -> Login
                 else -> throw IllegalArgumentException("Route $route is not recognized.")
             }
