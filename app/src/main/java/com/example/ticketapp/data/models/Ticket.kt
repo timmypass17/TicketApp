@@ -6,14 +6,16 @@ data class Ticket(
     val project: String,
     var status: String,
     val priority: String,
-    val createdAt: String
+    val createdAt: String,
+    val author: String
 ){
-//    constructor() : this (
-//        title = "",
-//        description = "",
-//        project = "",
-//        status = "",
-//        priority = "",
-//        createdAt = ""
-//    )
+    constructor() : this (
+        title = "",
+        description = "",
+        project = "",
+        status = "",
+        priority = "",
+        createdAt = "",
+        author = ""
+    )
 }
