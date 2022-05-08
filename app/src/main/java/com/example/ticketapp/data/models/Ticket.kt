@@ -4,7 +4,7 @@ data class Ticket(
     val title: String,
     val description: String,
     val project: String,
-    val status: String,
+    var status: String,
     val priority: String,
     val createdAt: String
 ){
