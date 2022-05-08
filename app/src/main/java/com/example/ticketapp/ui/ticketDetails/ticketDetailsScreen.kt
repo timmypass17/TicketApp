@@ -1,21 +1,20 @@
 package com.example.ticketapp.ui.ticketDetails
 
-import android.graphics.Color
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
+import androidx.compose.material.R
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Done
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -43,17 +42,22 @@ fun ticketDetailScreen (
     Scaffold (
         topBar = {
             TopAppBar(
-                title = { Text("") },
-                backgroundColor = androidx.compose.ui.graphics.Color.White,
+                title = { Text(currTicket.title) },
+                backgroundColor = White,
                 navigationIcon = {
+                    IconButton(onClick = { onClickReadyButton() }) {
+                        Icon(Icons.Filled.ArrowBack, contentDescription = "Ready Button")
+                    }
+                },
+                actions = {
                     IconButton(onClick = { onClickReadyButton() }) {
                         Icon(Icons.Filled.Done, contentDescription = "Ready Button")
                     }
-                    IconButton(onClick = { onClickCloseButton() }) {
-                        Icon(Icons.Filled.Done, contentDescription = "Close Button")
-                    }
                     IconButton(onClick = { onClickPriorityButton() }) {
                         Icon(Icons.Filled.Star, contentDescription = "Priority Button")
+                    }
+                    IconButton(onClick = { }) {
+                        Icon(Icons.Filled.Delete, contentDescription = "Delete Button")
                     }
                 }
             )
@@ -86,8 +90,42 @@ fun ticketDetailBody(currTicket: Ticket) {
         Spacer(modifier = Modifier.height(20.dp))
         Text(text = "Date created ", fontWeight = FontWeight.Bold, color = Purple700)
         Text(text = currTicket.createdAt, modifier = Modifier.padding(all = 3.dp))
+
+        Spacer(modifier = Modifier.height(20.dp))
+        Text(text = "Review", fontSize = 30.sp)
+        Divider()
+        Column() {
+            Row() {
+                Column(Modifier.weight(1f)) {
+                    Spacer(modifier = Modifier.padding(4.dp))
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text("Blue Dog", fontSize = 18.sp)
+                        Spacer(modifier = Modifier.padding(4.dp))
+                        Text("Program Manager", fontSize = 14.sp, color = Gray)
+                    }
+                    Text("You should do xyz...", color = Gray)
+                    Spacer(modifier = Modifier.padding(4.dp))
+
+                    Divider()
+                    Spacer(modifier = Modifier.padding(4.dp))
+
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Text("Red Cat", fontSize = 18.sp)
+                        Spacer(modifier = Modifier.padding(4.dp))
+                        Text("Developer", fontSize = 14.sp, color = Gray)
+                    }
+                    Text("Have you tried...", color = Gray)
+                    Spacer(modifier = Modifier.padding(4.dp))
+                    Divider()
+                }
+            }
+        }
     }
 }
+
+//Problem with creating users
+//
+//I having issues with database...
 
 //@Preview(showBackground = true)
 //@Composable

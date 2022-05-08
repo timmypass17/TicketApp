@@ -10,26 +10,29 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.ticketapp.data.models.Project
+import com.example.ticketapp.data.models.User
 
 @Composable
-fun CreateTicketScreen(onClickCreateTicket: (title: String, description: String, project: String, priority: String) -> Unit){
+fun CreateTicketScreen(
+    project: Project,
+    user: User,
+    onClickCreateTicket: (user: User, project: Project, title: String, description: String, projectTitle: String, priority: String) -> Unit
+){
     Scaffold() {
-        ticketBody(onClickCreateTicket)
+        ticketBody(project, user, onClickCreateTicket)
     }
 }
 
 @Composable
-fun createButton(onClickCreateTicket: (title: String, description: String, project: String, priority: String) -> Unit, title: String, description: String, project: String, priority: String) {
-    OutlinedButton(onClick = { onClickCreateTicket(title,description,project,priority)}) {
-        Text("Create Ticket")
-    }
-}
-
-@Composable
-fun ticketBody(onClickCreateTicket: (title: String, description: String, project: String, priority: String) -> Unit){
+fun ticketBody(
+    project: Project,
+    user: User,
+    onClickCreateTicket: (user: User, project: Project, title: String, description: String, projectTitle: String, priority: String) -> Unit
+){
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
-    var project by remember { mutableStateOf("") }
+    var projectTitle by remember { mutableStateOf("") }
     var priority by remember { mutableStateOf("") }
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -50,8 +53,8 @@ fun ticketBody(onClickCreateTicket: (title: String, description: String, project
         )
         Spacer(modifier = Modifier.padding(8.dp))
         OutlinedTextField(
-            value = project,
-            onValueChange = { project = it },
+            value = projectTitle,
+            onValueChange = { projectTitle = it },
             label = { Text("Project:") }
         )
         Spacer(modifier = Modifier.padding(8.dp))
@@ -61,7 +64,17 @@ fun ticketBody(onClickCreateTicket: (title: String, description: String, project
             label = { Text("Ticket priority:") }
         )
         Spacer(modifier = Modifier.padding(8.dp))
-        createButton(onClickCreateTicket = onClickCreateTicket, title, description, project, priority)
 
+        OutlinedButton(onClick = { onClickCreateTicket(user, project, title,description,projectTitle,priority)}) {
+            Text("Create Ticket")
+        }
     }
 }
+
+//
+//@Composable
+//fun createButton(onClickCreateTicket: (user: User, title: String, description: String, project: String, priority: String) -> Unit) {
+//    OutlinedButton(onClick = { onClickCreateTicket(user, title, description,project,priority)}) {
+//        Text("Create Ticket")
+//    }
+//}
