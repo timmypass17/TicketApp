@@ -131,7 +131,9 @@ fun TicketNavHost(
                 onClickAddProject = {
                     navController.navigate(TicketScreen.CreateProject.name)
                 },
-                onClickProject = {}
+                onClickProject = { project ->
+
+                }
             )
         }
 

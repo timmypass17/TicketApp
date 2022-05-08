@@ -29,26 +29,29 @@ fun ProfileScreen(
             )
         }
     ){
-        ProfileBody(user = user)
+        Profile(user = user)
     }
 }
 
 @Composable
-fun ProfileBody(user: User) {
-    Row(Modifier.padding(8.dp)) {
-        Icon(
-            Icons.Default.Person,
-            contentDescription = null, // decorative element
-            modifier = Modifier
-                .size(80.dp)
-                .align(Alignment.CenterVertically)
-        )
-        Spacer(Modifier.padding(4.dp))
-        Column(Modifier.padding(8.dp)) {
-            Text("Username: ${user.name}")
-            Text("Email: ${user.email}")
-            Text("Role: ${user.role}")
+fun Profile(user: User) {
+    Card(Modifier.fillMaxWidth(), elevation = 4.dp) {
+        Row(Modifier.padding(8.dp)) {
+            Icon(
+                Icons.Default.Person,
+                contentDescription = null, // decorative element
+                modifier = Modifier
+                    .size(80.dp)
+                    .align(Alignment.CenterVertically)
+            )
+            Spacer(Modifier.padding(4.dp))
+            Column(Modifier.padding(8.dp)) {
+                Text("Username: ${user.name}")
+                Text("Email: ${user.email}")
+                Text("Role: ${user.role}")
 
+            }
         }
+
     }
 }

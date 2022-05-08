@@ -32,7 +32,7 @@ class createProjectViewModel() : ViewModel(){
         // Add to database
         db.collection("projects").document(id).set(projectToAdd)
 
-        // Add project id to user's project
+        // Update user's project list
         val docRef = db.document("users/${user.id}")
         docRef
             .get()

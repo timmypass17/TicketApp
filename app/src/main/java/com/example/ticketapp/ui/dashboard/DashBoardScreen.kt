@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ticketapp.data.models.Project
 import com.example.ticketapp.data.models.User
+import com.example.ticketapp.ui.profile.Profile
 import com.example.ticketapp.ui.projectDetail.user
 
 @Composable
@@ -49,10 +50,14 @@ fun DashBoardScreen(
 @Composable
 fun DashBoardBody(user: User, onClickProject: (Project) -> Unit) {
     Column(Modifier.padding(16.dp)) {
+        Text("Welcome, ${user.name}!", fontSize = 30.sp)
+        Spacer(Modifier.padding(8.dp))
+        Profile(user = user)
+        Spacer(Modifier.padding(16.dp))
         Row(verticalAlignment = Alignment.CenterVertically) {
-            Text("My Projects", fontSize = 30.sp)
+            Text("My Projects", fontSize = 25.sp)
             Spacer(Modifier.padding(4.dp))
-            Text("(${user.projects.size})", fontSize = 25.sp)
+            Text("(${user.projects.size})", fontSize = 20.sp)
         }
         Spacer(Modifier.padding(4.dp))
         Divider()
