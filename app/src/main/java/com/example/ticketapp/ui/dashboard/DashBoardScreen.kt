@@ -18,7 +18,7 @@ import androidx.compose.ui.unit.sp
 import com.example.ticketapp.data.models.Project
 import com.example.ticketapp.data.models.User
 import com.example.ticketapp.ui.profile.Profile
-import com.example.ticketapp.ui.projectDetail.user
+
 
 @Composable
 fun DashBoardScreen(
