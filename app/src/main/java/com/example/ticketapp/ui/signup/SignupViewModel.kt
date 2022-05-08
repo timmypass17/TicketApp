@@ -56,7 +56,8 @@ class SignupViewModel() : ViewModel() {
                     name = name,
                     email = email,
                     pass = password,
-                    role = role
+                    role = role,
+                    projects = listOf()
                 )
                 docRef
                     .set(userToAdd)

@@ -16,6 +16,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.ticketapp.ui.createProject.CreateProjectScreen
+import com.example.ticketapp.ui.createProject.createProjectViewModel
 import com.example.ticketapp.ui.createTicket.CreateTicketScreen
 import com.example.ticketapp.ui.createTicket.createTicketViewModel
 import com.example.ticketapp.ui.dashboard.DashBoardScreen
@@ -23,6 +25,7 @@ import com.example.ticketapp.ui.dashboard.DashBoardViewModel
 import com.example.ticketapp.ui.login.LoginScreen
 import com.example.ticketapp.ui.login.LoginViewModel
 import com.example.ticketapp.ui.profile.ProfileScreen
+import com.example.ticketapp.ui.projectDetail.user
 import com.example.ticketapp.ui.signup.SignupScreen
 import com.example.ticketapp.ui.signup.SignupViewModel
 import com.example.ticketapp.ui.theme.TicketAppTheme
@@ -35,20 +38,22 @@ class MainActivity : ComponentActivity() {
         val signupViewModel by viewModels<SignupViewModel>()
         val dashBoardViewModel by viewModels<DashBoardViewModel>()
         val createTicketViewModel by viewModels<createTicketViewModel>()
+        val createProjectViewModel by viewModels<createProjectViewModel>()
 
         setContent {
             TicketApp(
                 loginViewModel = loginViewModel,
                 signupViewModel= signupViewModel,
                 dashBoardViewModel = dashBoardViewModel,
-                createTicketViewModel = createTicketViewModel
+                createTicketViewModel = createTicketViewModel,
+                createProjectViewModel = createProjectViewModel
             )
         }
     }
 }
 
 @Composable
-fun TicketApp(loginViewModel: LoginViewModel, signupViewModel: SignupViewModel, dashBoardViewModel: DashBoardViewModel, createTicketViewModel: createTicketViewModel) {
+fun TicketApp(loginViewModel: LoginViewModel, signupViewModel: SignupViewModel, dashBoardViewModel: DashBoardViewModel, createTicketViewModel: createTicketViewModel, createProjectViewModel: createProjectViewModel) {
     TicketAppTheme() {
         val navController = rememberNavController()
         val backStackEntry = navController.currentBackStackEntryAsState()
@@ -76,7 +81,8 @@ fun TicketApp(loginViewModel: LoginViewModel, signupViewModel: SignupViewModel, 
                 loginViewModel = loginViewModel,
                 signupViewModel = signupViewModel,
                 dashBoardViewModel = dashBoardViewModel,
-                createTicketViewModel = createTicketViewModel
+                createTicketViewModel = createTicketViewModel,
+                createProjectViewModel = createProjectViewModel
             )
         }
     }
@@ -89,7 +95,8 @@ fun TicketNavHost(
     loginViewModel: LoginViewModel,
     signupViewModel: SignupViewModel,
     dashBoardViewModel: DashBoardViewModel,
-    createTicketViewModel: createTicketViewModel
+    createTicketViewModel: createTicketViewModel,
+    createProjectViewModel: createProjectViewModel
 ) {
     NavHost(
         navController = navController,
@@ -118,7 +125,12 @@ fun TicketNavHost(
 
         composable(TicketScreen.DashBoard.name) {
             dashBoardViewModel.getCurrentUser()
-            DashBoardScreen(dashBoardViewModel.user)
+            DashBoardScreen(
+                user = dashBoardViewModel.user,
+                onClickAddProject = {
+                    navController.navigate(TicketScreen.CreateProject.name)
+                }
+            )
         }
 
         composable(TicketScreen.Profile.name) {
@@ -127,6 +139,12 @@ fun TicketNavHost(
 
         composable(TicketScreen.CreateTicket.name){
             CreateTicketScreen(onClickCreateTicket = createTicketViewModel::onClickCreateTicket)
+        }
+
+        composable(TicketScreen.CreateProject.name) {
+            CreateProjectScreen(
+                onClickCreateProject = createProjectViewModel::onClickCreateProject
+            )
         }
     }
 }
