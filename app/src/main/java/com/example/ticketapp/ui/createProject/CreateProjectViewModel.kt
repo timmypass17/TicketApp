@@ -20,6 +20,7 @@ class createProjectViewModel() : ViewModel(){
 
         // Create project
         val projectToAdd = Project(
+            id = id,
             title = title,
             description = description,
             manager = user,
