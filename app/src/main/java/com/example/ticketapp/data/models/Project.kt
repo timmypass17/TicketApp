@@ -1,6 +1,7 @@
 package com.example.ticketapp.data.models
 
 data class Project(
+    val id: String,
     val title: String,
     val description: String,
     val manager: User,
@@ -10,6 +11,7 @@ data class Project(
     val due: String
 ) {
     constructor() : this (
+        id = "",
         title = "",
         description = "",
         manager = User(),

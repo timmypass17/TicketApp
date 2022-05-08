@@ -25,6 +25,8 @@ import com.example.ticketapp.ui.dashboard.DashBoardViewModel
 import com.example.ticketapp.ui.login.LoginScreen
 import com.example.ticketapp.ui.login.LoginViewModel
 import com.example.ticketapp.ui.profile.ProfileScreen
+import com.example.ticketapp.ui.projectDetail.ProjectDetailScreen
+import com.example.ticketapp.ui.projectDetail.ProjectDetailViewModel
 import com.example.ticketapp.ui.signup.SignupScreen
 import com.example.ticketapp.ui.signup.SignupViewModel
 import com.example.ticketapp.ui.theme.TicketAppTheme
@@ -38,6 +40,7 @@ class MainActivity : ComponentActivity() {
         val dashBoardViewModel by viewModels<DashBoardViewModel>()
         val createTicketViewModel by viewModels<createTicketViewModel>()
         val createProjectViewModel by viewModels<createProjectViewModel>()
+        val projectDetailViewModel by viewModels<ProjectDetailViewModel>()
 
         setContent {
             TicketApp(
@@ -45,14 +48,15 @@ class MainActivity : ComponentActivity() {
                 signupViewModel= signupViewModel,
                 dashBoardViewModel = dashBoardViewModel,
                 createTicketViewModel = createTicketViewModel,
-                createProjectViewModel = createProjectViewModel
+                createProjectViewModel = createProjectViewModel,
+                projectDetailViewModel = projectDetailViewModel
             )
         }
     }
 }
 
 @Composable
-fun TicketApp(loginViewModel: LoginViewModel, signupViewModel: SignupViewModel, dashBoardViewModel: DashBoardViewModel, createTicketViewModel: createTicketViewModel, createProjectViewModel: createProjectViewModel) {
+fun TicketApp(loginViewModel: LoginViewModel, signupViewModel: SignupViewModel, dashBoardViewModel: DashBoardViewModel, createTicketViewModel: createTicketViewModel, createProjectViewModel: createProjectViewModel, projectDetailViewModel: ProjectDetailViewModel) {
     TicketAppTheme() {
         val navController = rememberNavController()
         val backStackEntry = navController.currentBackStackEntryAsState()
@@ -81,7 +85,8 @@ fun TicketApp(loginViewModel: LoginViewModel, signupViewModel: SignupViewModel, 
                 signupViewModel = signupViewModel,
                 dashBoardViewModel = dashBoardViewModel,
                 createTicketViewModel = createTicketViewModel,
-                createProjectViewModel = createProjectViewModel
+                createProjectViewModel = createProjectViewModel,
+                projectDetailViewModel = projectDetailViewModel
             )
         }
     }
@@ -95,7 +100,8 @@ fun TicketNavHost(
     signupViewModel: SignupViewModel,
     dashBoardViewModel: DashBoardViewModel,
     createTicketViewModel: createTicketViewModel,
-    createProjectViewModel: createProjectViewModel
+    createProjectViewModel: createProjectViewModel,
+    projectDetailViewModel: ProjectDetailViewModel
 ) {
     NavHost(
         navController = navController,
@@ -129,8 +135,11 @@ fun TicketNavHost(
                 onClickAddProject = {
                     navController.navigate(TicketScreen.CreateProject.name)
                 },
+                // User clicks on project
                 onClickProject = { project ->
-
+                    // Get project from firebase
+                    projectDetailViewModel.getCurrentProject(project.id)
+                    navController.navigate(TicketScreen.ProjectDetail.name)
                 }
             )
         }
@@ -150,6 +159,12 @@ fun TicketNavHost(
                 user = dashBoardViewModel.user,
                 onClickCreateProject = createProjectViewModel::onClickCreateProject
             )
+        }
+
+        composable(
+            route = TicketScreen.ProjectDetail.name
+        ){
+            ProjectDetailScreen(project = projectDetailViewModel.project)
         }
     }
 }
