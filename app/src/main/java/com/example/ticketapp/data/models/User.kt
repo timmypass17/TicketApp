@@ -6,7 +6,7 @@ data class User(
     val email: String,
     val pass: String,
     val role: String,
-    val projects: List<Project>
+    var projects: List<Project> // project ids
 ) {
     constructor() : this (
         id = "",

@@ -9,34 +9,33 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.ticketapp.data.models.User
+import com.example.ticketapp.ui.projectDetail.user
 
 @Composable
-fun CreateProjectScreen(onClickCreateProject: (title: String, description: String) -> Unit){
+fun CreateProjectScreen(
+    user: User,
+    onClickCreateProject: (user: User, title: String, description: String, due: String) -> Unit){
     Scaffold() {
-        projectBody(onClickCreateProject)
+        projectBody(user, onClickCreateProject)
     }
 }
 
 @Composable
-fun createProjectButton(onClickCreateProject: (title: String, description: String) -> Unit, title: String, description: String) {
-    OutlinedButton(onClick = { onClickCreateProject(title,description)}) {
-        Text("Create Project")
-    }
-}
-
-@Composable
-fun projectBody(onClickCreateProject: (title: String, description: String) -> Unit){
+fun projectBody(user: User, onClickCreateProject: (user: User, title: String, description: String, due: String) -> Unit){
     var title by remember { mutableStateOf("") }
     var description by remember { mutableStateOf("") }
-    var project by remember { mutableStateOf("") }
-    var priority by remember { mutableStateOf("") }
+    var due by remember { mutableStateOf("") }
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
 
         ) {
+        Text("Create Project", fontSize = 30.sp)
+        Spacer(modifier = Modifier.padding(8.dp))
         OutlinedTextField(
             value = title,
             onValueChange = { title = it },
@@ -49,6 +48,19 @@ fun projectBody(onClickCreateProject: (title: String, description: String) -> Un
             label = { Text("Project Description:") }
         )
         Spacer(modifier = Modifier.padding(8.dp))
-        createProjectButton(onClickCreateProject = onClickCreateProject, title, description)
+        OutlinedTextField(
+            value = due,
+            onValueChange = { due = it },
+            label = { Text("Due Date:") }
+        )
+        Spacer(modifier = Modifier.padding(8.dp))
+        createProjectButton(onClickCreateProject = onClickCreateProject, user, title, description, due)
+    }
+}
+
+@Composable
+fun createProjectButton(onClickCreateProject: (user: User, title: String, description: String, due: String) -> Unit, user: User, title: String, description: String, due: String) {
+    OutlinedButton(onClick = { onClickCreateProject(user, title,description, due)}) {
+        Text("Create Project")
     }
 }

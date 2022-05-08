@@ -26,6 +26,7 @@ import com.example.ticketapp.ui.login.LoginScreen
 import com.example.ticketapp.ui.login.LoginViewModel
 import com.example.ticketapp.ui.profile.ProfileScreen
 import com.example.ticketapp.ui.projectDetail.user
+import com.example.ticketapp.ui.projectDetail.users
 import com.example.ticketapp.ui.signup.SignupScreen
 import com.example.ticketapp.ui.signup.SignupViewModel
 import com.example.ticketapp.ui.theme.TicketAppTheme
@@ -129,12 +130,15 @@ fun TicketNavHost(
                 user = dashBoardViewModel.user,
                 onClickAddProject = {
                     navController.navigate(TicketScreen.CreateProject.name)
-                }
+                },
+                onClickProject = {}
             )
         }
 
         composable(TicketScreen.Profile.name) {
-            ProfileScreen()
+            ProfileScreen(
+                user = dashBoardViewModel.user
+            )
         }
 
         composable(TicketScreen.CreateTicket.name){
@@ -143,6 +147,7 @@ fun TicketNavHost(
 
         composable(TicketScreen.CreateProject.name) {
             CreateProjectScreen(
+                user = dashBoardViewModel.user,
                 onClickCreateProject = createProjectViewModel::onClickCreateProject
             )
         }
