@@ -13,6 +13,7 @@ enum class TicketScreen(
     Signup(Icons.Default.Face),
     DashBoard(Icons.Default.Home),
     Profile(Icons.Default.Person),
+    ProjectDetail(Icons.Default.Face),
     CreateTicket(Icons.Default.Face),
     CreateProject(Icons.Default.Face);
 
@@ -23,6 +24,7 @@ enum class TicketScreen(
                 Signup.name -> Signup
                 DashBoard.name -> DashBoard
                 Profile.name -> Profile
+                ProjectDetail.name -> ProjectDetail
                 CreateTicket.name -> CreateTicket
                 CreateProject.name -> CreateProject
                 null -> Login

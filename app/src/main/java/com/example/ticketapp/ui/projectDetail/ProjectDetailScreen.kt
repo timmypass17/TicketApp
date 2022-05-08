@@ -13,21 +13,22 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.FabPosition
 import androidx.compose.material.FloatingActionButton
+import com.example.ticketapp.data.models.Project
 
 @Composable
-fun ProjectDetailScreen(){
+fun ProjectDetailScreen(project: Project){
     Scaffold (    floatingActionButton = {
         FloatingActionButton(onClick = { /* ... */ }) {
         }
 
     },floatingActionButtonPosition = FabPosition.End
     ){
-        projectBody()
+        projectBody(project)
     }
 }
 
 @Composable
-fun projectBody(){
+fun projectBody(project: Project){
     val innerPadding = PaddingValues(top = 10.dp, start = 15.dp)
     Column(
         modifier = Modifier
@@ -36,7 +37,7 @@ fun projectBody(){
         horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Top,
     ) {
-        Text("Title: ", fontSize = 30.sp)
+        Text("Title: ${project.title}", fontSize = 30.sp)
         Text("Description: ",fontSize = 20.sp )
 //        UserList(users = users)
 //        ticketList(tickets = tickets)
@@ -66,9 +67,9 @@ fun createTicketScreen(){
 
 }
 
-@Preview
-@Composable
-fun previewProject(){
-    ProjectDetailScreen()
-}
+//@Preview
+//@Composable
+//fun previewProject(){
+//    ProjectDetailScreen()
+//}
 
