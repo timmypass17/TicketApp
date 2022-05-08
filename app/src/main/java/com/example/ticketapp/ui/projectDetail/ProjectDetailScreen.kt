@@ -38,40 +38,28 @@ fun projectBody(){
     ) {
         Text("Title: ", fontSize = 30.sp)
         Text("Description: ",fontSize = 20.sp )
-        UserList(users = users)
-        ticketList(tickets = tickets)
+//        UserList(users = users)
+//        ticketList(tickets = tickets)
     }
 }
 
-@Composable
-fun UserList(users: List<user>){
-    LazyColumn{
-        items(users) { user ->
-            Text(user.username, fontSize = 18.sp)
-        }
-    }
-}
-
-class user(name: String){
-    val username = name
-}
-
-val users = listOf(user("john"), user("kim"), user("Timmy"))
-
-@Composable
-fun ticketList(tickets: List<ticket>){
-    LazyColumn{
-        items(tickets) { ticket ->
-            Text(ticket.ticketName, fontSize = 18.sp)
-        }
-    }
-}
-
-class ticket(name: String){
-    val ticketName = name
-}
-
-val tickets = listOf(ticket("ticket 1"),ticket("ticket 2"), ticket("ticket 4"))
+//@Composable
+//fun UserList(users: List<user>){
+//    LazyColumn{
+//        items(users) { user ->
+//            Text(user.username, fontSize = 18.sp)
+//        }
+//    }
+//}
+//
+//@Composable
+//fun ticketList(tickets: List<ticket>){
+//    LazyColumn{
+//        items(tickets) { ticket ->
+//            Text(ticket.ticketName, fontSize = 18.sp)
+//        }
+//    }
+//}
 
 @Composable
 fun createTicketScreen(){

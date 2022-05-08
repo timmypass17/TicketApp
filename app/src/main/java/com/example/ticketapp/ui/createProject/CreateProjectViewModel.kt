@@ -4,8 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.example.ticketapp.data.models.Project
 import com.example.ticketapp.data.models.User
-import com.example.ticketapp.ui.projectDetail.user
-import com.example.ticketapp.ui.signup.TAG
+
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase

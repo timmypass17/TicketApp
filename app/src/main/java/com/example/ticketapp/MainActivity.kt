@@ -25,8 +25,6 @@ import com.example.ticketapp.ui.dashboard.DashBoardViewModel
 import com.example.ticketapp.ui.login.LoginScreen
 import com.example.ticketapp.ui.login.LoginViewModel
 import com.example.ticketapp.ui.profile.ProfileScreen
-import com.example.ticketapp.ui.projectDetail.user
-import com.example.ticketapp.ui.projectDetail.users
 import com.example.ticketapp.ui.signup.SignupScreen
 import com.example.ticketapp.ui.signup.SignupViewModel
 import com.example.ticketapp.ui.theme.TicketAppTheme
